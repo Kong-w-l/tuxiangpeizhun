@@ -1,0 +1,30 @@
+clc
+ 
+Im1=imread('Image A.jpg');
+Im2=imread('Image B.jpg');
+figure(1)
+imshow(Im1,'InitialMagnification','fit');
+hold on
+[row1,column1]=getpts() ;
+plot(row1,column1,'r*');
+grid on
+ 
+figure(2);
+imshow(Im2,'InitialMagnification','fit');
+hold on
+[row2,column2]=getpts() ;
+plot(row2,column2,'r*');
+grid on
+%可以使用cpselect函数进行标点
+ 
+S1=[row1,column1]
+S2=[row2,column2]
+tform=cp2tform(S2,S1,'affine');
+New_Im=imtransform(Im2,tform);
+figure(3);
+subplot(1,2,1);
+imshow(Im1);
+subplot(1,2,2);
+imshow(New_Im);
+[x1,y1]=size(Im1)
+[x2,y2]=size(New_Im)
